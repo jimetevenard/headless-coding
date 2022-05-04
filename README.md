@@ -5,6 +5,8 @@ Headless coding image, derived from <https://github.com/accetto/headless-coding-
 This is a Desktop (Xfce) environment for coding with nodejs, vscode, Java (OpenJDK 17), maven and IntelliJ.  
 It also includes Mozilla Firefox as main browser.
 
+![Headless coding environment](docs/VNC_screenshot.png)
+
 
 ## Run : Give it a try
 
