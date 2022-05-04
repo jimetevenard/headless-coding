@@ -3,7 +3,9 @@ name: Docker Image CI
 on:
   push:
     branches:
-      - 'main'
+      - 'main' # Only on main branch
+    paths:
+      - 'Dockerfile' # AND if the Dockerfile has been updated by HEAD commit
 
 jobs:
   docker:
