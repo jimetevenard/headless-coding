@@ -10,6 +10,15 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - jdk-version: "openjdk-17-jdk-headless"
+            tag: "java-17"
+          - jdk-version: "openjdk-17-jdk-headless"
+            tag: "java-17"
+          - tag: "latest"
+
     steps:
       -
         name: Login to DockerHub
@@ -23,8 +32,10 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
+          build-args: |
+            JAVA_JDK_VERSION=${{ matrix.jdk-version }}
           tags: |
-            jimetevenard/headless-coding:latest
+            jimetevenard/headless-coding:${{ matrix.tag }}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}

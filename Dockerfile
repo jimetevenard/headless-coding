@@ -1,7 +1,7 @@
 FROM accetto/ubuntu-vnc-xfce-nodejs-g3:vscode-firefox
 
-ENV INTELLIJ_VERSION="ideaIC-2022.1"
-ENV JAVA_JDK_VERSION="openjdk-17-jdk-headless"
+ARG INTELLIJ_VERSION="ideaIC-2022.1"
+ARG JAVA_JDK_VERSION="openjdk-17-jdk-headless"
 
 USER root
 
