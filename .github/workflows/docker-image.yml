@@ -2,10 +2,13 @@ name: Docker Image CI
 
 on:
   push:
+    # Only on main branch AND if either the Dockerfile or a worflow file
+    # has been updated by HEAD commit
     branches:
-      - 'main' # Only on main branch
+      - 'main'
     paths:
-      - 'Dockerfile' # AND if the Dockerfile has been updated by HEAD commit
+      - 'Dockerfile' 
+      - '.github/workflows/*.yml'
 
 jobs:
   docker:
@@ -16,8 +19,10 @@ jobs:
           - jdk-version: "openjdk-17-jdk-headless"
             tag: "java-17"
           - jdk-version: "openjdk-17-jdk-headless"
-            tag: "java-17"
-          - tag: "latest"
+            tag: "latest" # FixMe : 'duplicates' the java-17 image build with a different SHA digest
+          - jdk-version: "openjdk-11-jdk-headless"
+            tag: "java-11"
+
 
     steps:
       -
