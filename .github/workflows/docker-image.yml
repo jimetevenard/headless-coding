@@ -10,18 +10,19 @@ on:
       - 'Dockerfile' 
       - '.github/workflows/*.yml'
 
+env:
+  repository: jimetevenard/headless-coding
+
 jobs:
   docker:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         include:
-          - jdk-version: "openjdk-17-jdk-headless"
-            tag: "java-17"
-          - jdk-version: "openjdk-17-jdk-headless"
-            tag: "latest" # FixMe : 'duplicates' the java-17 image build with a different SHA digest
-          - jdk-version: "openjdk-11-jdk-headless"
-            tag: "java-11"
+          - jdk_version: "openjdk-17-jdk-headless"
+            image_tags_csv: "${{ env.repository }}:latest,${{ env.repository }}:java-17"
+          - jdk_version: "openjdk-11-jdk-headless"
+            image_tags_csv: "${{ env.repository }}:java-11"
 
 
     steps:
@@ -38,9 +39,8 @@ jobs:
         with:
           push: true
           build-args: |
-            JAVA_JDK_VERSION=${{ matrix.jdk-version }}
-          tags: |
-            jimetevenard/headless-coding:${{ matrix.tag }}
+            JAVA_JDK_VERSION=${{ matrix.jdk_version }}
+          tags: ${{ matrix.image_tags_csv }}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
